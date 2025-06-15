@@ -5,6 +5,7 @@ from nltk.tokenize import word_tokenize
 
 # Download required NLTK data (only once, then you can comment it)
 nltk.download('punkt')
+nltk.download('punkt_tab')
 nltk.download('stopwords')
 
 # Text cleaning and keyword extraction
