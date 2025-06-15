@@ -2,22 +2,26 @@ import re
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+import ssl
 
-# Download required NLTK data (only once, then you can comment it)
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+else:
+    ssl._create_default_https_context = _create_unverified_https_context
+
 nltk.download('punkt')
-nltk.download('punkt_tab')
 nltk.download('stopwords')
 
-# Text cleaning and keyword extraction
 def clean_text(text):
-    text = text.lower()  # lowercase everything
-    words = word_tokenize(text)  # tokenize
-    words = [re.sub(r'\W+', '', w) for w in words]  # remove non-word characters
-    words = [w for w in words if w]  # remove empty strings
-    words = [w for w in words if w not in stopwords.words('english')]  # remove stopwords
+    text = text.lower()
+    words = word_tokenize(text)
+    words = [re.sub(r'\W+', '', w) for w in words]
+    words = [w for w in words if w]
+    words = [w for w in words if w not in stopwords.words('english')]
     return set(words)
 
-# Keyword comparison logic
 def compare_keywords(resume, job_desc):
     resume_keywords = clean_text(resume)
     jd_keywords = clean_text(job_desc)
@@ -38,7 +42,6 @@ def compare_keywords(resume, job_desc):
 
     return match_pct, sorted(missing), score
 
-# Main CLI function
 def main():
     print("🚀 Job Keyword Scanner 🚀\n")
     
