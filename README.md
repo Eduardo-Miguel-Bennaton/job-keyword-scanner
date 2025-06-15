@@ -54,8 +54,7 @@ This will open the application in your default web browser, usually at `http://l
 ## Project Structure
 
 project_root/
-│
-├── app.py # Main Streamlit application
-├── scanner.py # Core keyword extraction and comparison logic
-├── README.md # This file
-└── requirements.txt # (Optional) Dependency list for easy installation
+- `app.py`: Main Streamlit application
+- `scanner.py`: Core keyword extraction and comparison logic
+- `README.md`: This file
+- `requirements.txt`: (Optional) Dependency list for easy installation
