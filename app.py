@@ -3,7 +3,7 @@ from scanner import compare_keywords
 
 st.set_page_config(page_title="Job Keyword Scanner", layout="centered")
 
-st.title("🚀 Job Keyword Scanner")
+st.title("Job Keyword Scanner")
 
 st.write("Paste your resume and the job description below to analyze keyword match.")
 
