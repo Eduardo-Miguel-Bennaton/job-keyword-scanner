@@ -1,27 +1,25 @@
 import streamlit as st
-from scanner import compare_keywords # Assuming scanner.py contains your logic
+from scanner import compare_keywords
 
 st.set_page_config(page_title="Job Keyword Scanner", layout="centered")
 
-st.title("Job Keyword Scanner") # Added an emoji to the title
+st.title("Job Keyword Scanner")
 
 st.write("Paste your resume and the job description below to analyze keyword match.")
 
 resume = st.text_area("**Your Resume Text:**", height=300, placeholder="Paste your resume text here...")
 job_desc = st.text_area("**Job Description Text:**", height=300, placeholder="Paste the job description here...")
 
-if st.button("Analyze Job Fit", type="primary"): # Changed button text and added type for emphasis
+if st.button("Analyze Job Fit", type="primary"):
     if resume and job_desc:
         match_pct, missing, score = compare_keywords(resume, job_desc)
 
-        st.markdown("---") # Add a separator for better visual flow
+        st.markdown("---")
         st.subheader("Analysis Results")
 
-        # 1. Highlight Key Metric (Keyword Match)
         st.metric(label="Keyword Match Percentage", value=f"{match_pct:.2f}%")
 
-        # 2. Visual Score Indicator
-        st.write("---") # Another separator
+        st.write("---")
         st.write("**Recommendation Score:**")
         if score == 'Excellent':
             st.success(f"**{score}!** Your resume is a strong match for this job description.")
@@ -29,12 +27,11 @@ if st.button("Analyze Job Fit", type="primary"): # Changed button text and added
             st.info(f"**{score}!** A good match, but there's room for improvement.")
         elif score == 'Fair':
             st.warning(f"**{score}.** Consider optimizing your resume further.")
-        else: # Needs Improvement
+        else:
             st.error(f"**{score}.** Significant changes are needed to align with the job description.")
 
-        st.write("---") # Another separator
+        st.write("---")
 
-        # 3. Cleaner Missing Keywords Display
         if missing:
             st.write("#### ⚠️ Keywords to Consider Adding:")
             with st.expander("Click to see Missing Keywords (from Job Description)"):
@@ -45,7 +42,6 @@ if st.button("Analyze Job Fit", type="primary"): # Changed button text and added
                     improve your match score.
                     """
                 )
-                # Display missing keywords in a more readable format, e.g., as a bullet list or tagged items
                 st.markdown(
                     "<div style='display: flex; flex-wrap: wrap; gap: 8px;'>",
                     unsafe_allow_html=True
